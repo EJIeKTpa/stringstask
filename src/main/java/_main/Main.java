@@ -132,4 +132,5 @@ public class Main {
         String result = String.format("Студент %-15s получил %-3d по %-10s", lastName, mark, subject);
         System.out.println(result);
     }
+
 }
