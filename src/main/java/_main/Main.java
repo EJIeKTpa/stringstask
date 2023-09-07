@@ -1,9 +1,19 @@
 package _main;
 
+import entity.Employee;
+import service.Report;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
+
+        Employee e1 = new Employee("Илон Маск", 100000.20);
+        Employee e2 = new Employee("Стив Джобс", 150000.11);
+        Employee e3 = new Employee("Марк Цукенберг", 200000.90);
+        Employee [] employees = {e1, e2, e3};
+        Report.generateReport(employees);
+
 
         StringBuilder stringbuilder1 = StringBuilderDemo.createSomeString(7, 44);
         System.out.println(stringbuilder1);
@@ -52,5 +62,74 @@ public class Main {
         if (text1 instanceof String) {
             System.out.println("It's a string!");
         }
+        //3
+        String sentence = "Object-oriented programming is a programming language model organized around objects rather than \"actions\" and data rather than logic. Object-oriented programming blabla. Object-oriented programming bla.";
+        String result = replaceEverySecondOccurrence(sentence, "object-oriented programming ", "OOP ");
+        System.out.println(result);
+
+        //4
+        String word = "string";
+        String middleChars = getMiddleCharacters(word);
+        System.out.println("Средние символы: " + middleChars);
+
+        //5
+        printStudentInfo("Иванов", 5, "Математике");
+        printStudentInfo("Петрова", 4, "Физике");
+        printStudentInfo("Сидорова", 3, "Программированию");
+    }
+
+    //3
+    public static String replaceEverySecondOccurrence(String input, String target, String replaceWith) {
+        int index = input.toLowerCase().indexOf(target.toLowerCase());
+        int counter = 0;
+        int lastReplacedIndex = 0;
+        String lowerCaseInput = input.toLowerCase();
+        while (index != -1) {
+            counter++;
+            if (counter % 2 == 0) {
+                input = input.substring(0, lastReplacedIndex + target.length()) + replaceWith + input.substring(lastReplacedIndex + target.length());
+            }
+            lastReplacedIndex = lowerCaseInput.indexOf(target.toLowerCase(), lastReplacedIndex + target.length());
+            index = lowerCaseInput.indexOf(target.toLowerCase(), index + target.length());
+        }
+        return input;
+        // или
+        // public class Main {
+        //    public static void main(String[] args) {
+        //        String sentence = "Object-oriented programming is a programming language model organized around objects rather than \"actions\" and data rather than logic. Object-oriented programming blabla. Object-oriented programming bla.";
+        //        String result = replaceEverySecondOccurrence(sentence, "object-oriented programming", "OOP");
+        //        System.out.println(result);
+        //    }
+        //
+        //    public static String replaceEverySecondOccurrence(String input, String target, String replacement) {
+        //        String regex = "(?i)" + target; // создаем регулярное выражение для игнорирования регистра
+        //        Matcher matcher = Pattern.compile(regex).matcher(input);
+        //        StringBuilder buffer = new StringBuilder();
+        //        boolean found = false;
+        //        while (matcher.find()) {
+        //            if (found) {
+        //                matcher.appendReplacement(buffer, Matcher.quoteReplacement(replacement));
+        //                found = false;
+        //            } else {
+        //                matcher.appendReplacement(buffer, Matcher.quoteReplacement(matcher.group()));
+        //                found = true;
+        //            }
+        //        }
+        //        matcher.appendTail(buffer);
+        //        return buffer.toString();
+        //    }
+        //}
+    }
+
+    //4
+    public static String getMiddleCharacters(String word) {
+        int length = word.length();
+        int middle = length / 2;
+        return word.substring(middle - 1, middle + 1);
+    }
+    //5
+    public static void printStudentInfo(String lastName, int mark, String subject) {
+        String result = String.format("Студент %-15s получил %-3d по %-10s", lastName, mark, subject);
+        System.out.println(result);
     }
 }
