@@ -16,7 +16,6 @@ public class StringBuilderDemo {
         while ((element = stringBuilder.indexOf("=")) != -1) {
             stringBuilder.deleteCharAt(element).insert(element, " равно "); //выделить 2 строки или сколько нужно и нажать ctrl+alt+T
         }
-
         return stringBuilder;
     }
 
